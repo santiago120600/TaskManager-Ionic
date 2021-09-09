@@ -1,9 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+    <form action="">
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Username:</ion-label>
+                <ion-input name="username"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Password:</ion-label>
+                <ion-input name="password" type="password"></ion-input>
+            </ion-item>
+        </ion-card-content>
+        <ion-card-header>
+          <ion-button color="primary" (click)="do_login();">Autenticar</ion-button>
+          <ion-button (click)="register()" color="primary">Registrar</ion-button>
+        </ion-card-header>
+    </ion-card>
+    </form>
 </ion-content>

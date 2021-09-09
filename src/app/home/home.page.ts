@@ -13,9 +13,6 @@ export class HomePage {
   ) {}
 
  ngOnInit() {
-    this.restService.get_method('task','').subscribe(result=>{
-      console.log(result.data);
-    });
   }
 
 }
