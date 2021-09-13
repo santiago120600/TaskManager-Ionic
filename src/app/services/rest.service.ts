@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class RestService {
     private http: HttpClient,
     private toastController: ToastController,
     private loadingController : LoadingController,
-  ) { }
+    private storage : Storage,
+  ) { 
+    this.storage.create();
+  }
 
   post_method(_uri : string,_data : any){
     return this.http.post<any>(this.apiUrl+_uri,_data);
@@ -41,7 +45,8 @@ export class RestService {
     return this.http.post<any>(this.apiUrl+"login",_data).subscribe(result =>{
       loading.dismiss();
       if(result.status == "200"){
-          //guardar sesion y token
+          this.storage.set('session',result.data);
+          localStorage.setItem('token',result.data['token']);
           // redirigir a home
           this.display_toast('Success',"success",result.message,'top',4000);
       }else if(result.status=="401"){
@@ -54,6 +59,17 @@ export class RestService {
       this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       loading.dismiss();
     });
+  }
+
+  async logout(){
+    const loading = await this.loadingController.create({
+      message: 'Cerrando sesión...'
+    });
+    await loading.present();
+    await this.storage.remove('session');
+    localStorage.removeItem('token');
+    loading.dismiss();
+    //this.authState.next(false);
   }
 
   async display_toast(_title,_type,_message,_position,_duration){
@@ -71,6 +87,23 @@ export class RestService {
       ]
     });
     toast.present();
+  }
+
+ isLoggedIn(){
+    this.storage.get('session').then((response) => {
+      if(response){
+        //this.authState.next(true);
+      }
+      /*prueba de sesión descomentar el else para pruebas*/
+        /*else{
+        let fake_session = {
+          "nombre" : "X"
+        }
+        this.storage.set('ALMACEN_SESS',fake_session).then( (response) =>{
+          this.authState.next(true);
+        });
+      }*/
+    });
   }
 
 }

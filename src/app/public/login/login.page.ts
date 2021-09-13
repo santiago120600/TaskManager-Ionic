@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../services/rest.service';
 import { ModalController } from '@ionic/angular';
+import { RegisterModalPage } from '../../modals/register-modal/register-modal.page';
 
 @Component({
   selector: 'app-login',
@@ -24,15 +25,14 @@ export class LoginPage implements OnInit {
 
 
  do_login(){
-    console.log(this.credentials);
     this.restService.login(this.credentials);
   }
 
- //async register(){
-    //const modal = await this.modalController.create({
-      //component: RegisterModalPage
-    //});
-    //return await modal.present();
-  //};
+ async register(){
+    const modal = await this.modalController.create({
+      component: RegisterModalPage
+    });
+    return await modal.present();
+  };
 
 }

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
       BrowserModule,
       IonicModule.forRoot(),
       AppRoutingModule,
-      HttpClientModule
+      HttpClientModule,
+      IonicStorageModule.forRoot(),
   ],
   providers: [
       { 

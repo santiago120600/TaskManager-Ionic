@@ -15,15 +15,19 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor() {}
+    
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
   {
-     request = request.clone({
-          setHeaders:{
-              Authorization: 'Token ef234926a2eb1279627afa831776e435c412f4b7'
-          }
-      });
+     const token =  localStorage.getItem('token');  
+     if (token){
+         request = request.clone({
+              setHeaders:{
+                  Authorization: `token ${token}`
+              }
+          });
+     }
       if (!request.headers.has('Content-Type')) {
       request = request.clone({
         setHeaders: {
@@ -44,5 +48,6 @@ export class TokenInterceptorService implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       }));
+
   }
 }

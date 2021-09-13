@@ -1,9 +1,101 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register-modal</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Registrar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss();">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-sm="6" size-md="6" size-lg="12" size="12" color="primary"> 
+      <ion-card>
+        <form (ngSubmit)="registrar();" [formGroup]="registerForm">
+          <ion-card-content>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Nombre:</ion-label>
+                <ion-input type="text" formControlName="pName"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pName.invalid">
+                <ion-text color="danger">Nombre requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Apellido:</ion-label>
+                <ion-input type="text" formControlName="pLastname"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pLastname.invalid">
+                <ion-text color="danger">Apellido requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">G&eacute;nero:</ion-label>
+                <ion-select placeholder="G&eacute;nero" formControlName="pGenre">
+                  <ion-select-option value="F">Femenino</ion-select-option>
+                  <ion-select-option value="M">Masculino</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pGenre.invalid">
+                <ion-text color="danger">G&eacute;nero requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Tipo de usuario:</ion-label>
+                <ion-select placeholder="Seleccione uno" formControlName="pRole">
+                  <ion-select-option value="Personal acad├®mico/administrativo">Personal acad&eacute;mico/Administrativo</ion-select-option>
+                  <ion-select-option value="Estudiante">Estudiante</ion-select-option>
+                  <ion-select-option value="Otros">Otro</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pRole.invalid">
+                <ion-text color="danger">G&eacute;nero requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Email:</ion-label>
+                <ion-input type="email" formControlName="pEmail"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pEmail.invalid">
+                <ion-text color="danger">Email requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Identificador:</ion-label>
+                <ion-input type="number" formControlName="pIdentifier"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pIdentifier.invalid">
+                <ion-text color="danger">Identificador requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Tel&eacute;fono:</ion-label>
+                <ion-input type="number" formControlName="pPhone"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pPhone.invalid">
+                <ion-text color="danger">Tel&eacute;fono requerido.</ion-text>
+              </div>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Carrera:</ion-label>
+                <ion-select  formControlName="pCareer"  placeholder="Seleccione su carrera">
+                  <ion-select-option value="{{carrera.id_career}}" *ngFor="let carrera of carreras_list">{{carrera.name_career}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.pCareer.invalid">
+                <ion-text color="danger">Carrera requerida.</ion-text>
+              </div>
+          </ion-card-content>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-button expand="block" fill="outline" type="submit">Registrar</ion-button>
+            </ion-col>
+          </ion-row>
+          </form>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>
