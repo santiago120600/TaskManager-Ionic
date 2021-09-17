@@ -46,10 +46,36 @@ export class RestService {
       loading.dismiss();
       if(result.status == "200"){
           this.storage.set('session',result.data);
-          localStorage.setItem('token',result.data['token']);
+          localStorage.setItem('token',result.token);
           // redirigir a home
           this.display_toast('Success',"success",result.message,'top',4000);
       }else if(result.status=="401"){
+          this.display_toast('Error',"danger",result.message,'top',4000);
+      }else{
+          this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
+      }
+    },(err) => {
+      console.info(err);
+      this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
+      loading.dismiss();
+    });
+  }
+
+  async register(_data : any){
+    const loading = await this.loadingController.create({
+      message: 'Verificando...'
+    });
+    await loading.present();
+    console.info(this.apiUrl);
+    return this.http.post<any>(this.apiUrl+"register",_data).subscribe(result =>{
+      loading.dismiss();
+      console.log(result);
+      if(result.status == "201"){
+          this.storage.set('session',result.data);
+          localStorage.setItem('token',result.token);
+          // redirigir a home
+          this.display_toast('Success',"success",result.message,'top',4000);
+      }else if(result.status=="400"){
           this.display_toast('Error',"danger",result.message,'top',4000);
       }else{
           this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);

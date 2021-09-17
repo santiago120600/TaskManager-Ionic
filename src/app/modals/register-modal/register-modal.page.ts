@@ -7,7 +7,6 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import { ToastController } from "@ionic/angular";
 import { AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 
@@ -17,31 +16,43 @@ import { RestService } from '../../services/rest.service';
   styleUrls: ['./register-modal.page.scss'],
 })
 export class RegisterModalPage implements OnInit {
+  public registerForm: FormGroup;
+  form_sent = false;
 
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    public toastController: ToastController,
     public alertController: AlertController,
     private restService : RestService,
-  ) { }
+  ) {
+    this.registerForm = this.formBuilder.group({
+      first_name: new FormControl("", Validators.compose([Validators.required])),
+      last_name: new FormControl("", Validators.compose([Validators.required])),
+      email: new FormControl("", Validators.compose([Validators.required])),
+      password: new FormControl("", Validators.compose([Validators.required])),
+      username: new FormControl("", Validators.compose([Validators.required]))
+    });
+  }
 
   ngOnInit() {
   }
 
- async show_toast(_message, _color) {
-    const toast = await this.toastController.create({
-      message: _message,
-      duration: 2000,
-      color: _color
-    });
-    toast.present();
-  }
 
  dismiss() {
     this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  register(){
+    this.form_sent = true;
+    if (this.registerForm.invalid) {
+      return;
+    } else {
+      this.restService.register(this.registerForm.value);
+      // si no hay errores al registrar entonces cerrar el modal
+      this.dismiss()
+    }
   }
 
 }

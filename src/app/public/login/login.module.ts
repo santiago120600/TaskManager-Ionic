@@ -16,7 +16,8 @@ import { RegisterModalPageModule } from '../../modals/register-modal/register-mo
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    RegisterModalPageModule
+    RegisterModalPageModule,
+    ReactiveFormsModule
   ],
   declarations: [LoginPage]
 })

@@ -1,20 +1,27 @@
 <ion-content>
-    <form action="">
-    <ion-card>
-        <ion-card-content>
-            <ion-item>
-                <ion-label>Username:</ion-label>
-                <ion-input name="username"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label>Password:</ion-label>
-                <ion-input name="password" type="password"></ion-input>
-            </ion-item>
-        </ion-card-content>
-        <ion-card-header>
-          <ion-button color="primary" (click)="do_login();">Autenticar</ion-button>
-          <ion-button (click)="register()" color="primary">Registrar</ion-button>
-        </ion-card-header>
-    </ion-card>
-    </form>
+    <ion-grid style="height:100%; display:flex; align-items:center;">
+        <ion-row class="" style="width:100%">
+            <ion-col>
+                <ion-card size="4" size-sm="6" size-md="7" size-lg="8" size-xl="3" >
+                    <form (ngSubmit)="do_login();" [formGroup]="loginForm">
+                        <ion-card-content>
+                            <ion-item>
+                                <ion-label>Username:</ion-label>
+                                <ion-input name="username" formControlName="username"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Password:</ion-label>
+                                <ion-input name="password" type="password" formControlName="password"></ion-input>
+                            </ion-item>
+                        </ion-card-content>
+                        <ion-card-header>
+                            <ion-button color="secondary" type="submit">Autenticar</ion-button>
+                            <ion-button (click)="register()" color="secondary">Registrar</ion-button>
+                        </ion-card-header>
+                    </form>
+                </ion-card>
+             </ion-col>
+          </ion-row>
+    </ion-grid>
 </ion-content>
+
