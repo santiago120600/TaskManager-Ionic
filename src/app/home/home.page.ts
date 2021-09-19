@@ -8,11 +8,22 @@ import { RestService } from '../services/rest.service';
 })
 export class HomePage {
 
+  session;
+
   constructor(
     private restService : RestService,
-  ) {}
+  ) {
+   this.restService.authUserData().then(result=>{
+        this.session = result;
+        console.log(this.session);
+    });
+  }
 
  ngOnInit() {
+  }
+
+  close_sess(){
+      this.restService.logout();
   }
 
 }

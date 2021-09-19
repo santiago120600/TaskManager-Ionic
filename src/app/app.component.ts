@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { RestService } from './services/rest.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,19 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+   private platform: Platform,
+    private restService : RestService,
+    private navCtrl : NavController
+  ) {
+   this.platform.ready().then(() => {
+      this.restService.authState.subscribe(state => {
+        if(state){
+          this.navCtrl.navigateRoot(['home']);
+        }else{
+          this.navCtrl.navigateRoot(['login']);
+        }
+      });
+    });
+  }
 }

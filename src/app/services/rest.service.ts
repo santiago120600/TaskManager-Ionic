@@ -3,6 +3,8 @@ import { HttpClient, HttpBackend } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import {BehaviorSubject} from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,22 @@ import { Storage } from '@ionic/storage-angular';
 export class RestService {
 
   apiUrl = "http://localhost:8000/";
+  public authState =  new BehaviorSubject(false);
+  private httpClientFiles: HttpClient;
 
   constructor(
     private http: HttpClient,
     private toastController: ToastController,
     private loadingController : LoadingController,
     private storage : Storage,
+    private handler : HttpBackend,
+    private platform : Platform,
   ) { 
     this.storage.create();
+     this.platform.ready().then(()=>{
+        this.isLoggedIn();
+        this.httpClientFiles = new HttpClient(this.handler);
+      });
   }
 
   post_method(_uri : string,_data : any){
@@ -48,7 +58,8 @@ export class RestService {
           this.storage.set('session',result.data);
           localStorage.setItem('token',result.token);
           // redirigir a home
-          this.display_toast('Success',"success",result.message,'top',4000);
+          this.authState.next(true);
+          //this.display_toast('Success',"success",result.message,'top',4000);
       }else if(result.status=="401"){
           this.display_toast('Error',"danger",result.message,'top',4000);
       }else{
@@ -74,7 +85,8 @@ export class RestService {
           this.storage.set('session',result.data);
           localStorage.setItem('token',result.token);
           // redirigir a home
-          this.display_toast('Success',"success",result.message,'top',4000);
+          this.authState.next(true);
+          //this.display_toast('Success',"success",result.message,'top',4000);
       }else if(result.status=="400"){
           this.display_toast('Error',"danger",result.message,'top',4000);
       }else{
@@ -95,7 +107,7 @@ export class RestService {
     await this.storage.remove('session');
     localStorage.removeItem('token');
     loading.dismiss();
-    //this.authState.next(false);
+    this.authState.next(false);
   }
 
   async display_toast(_title,_type,_message,_position,_duration){
@@ -118,7 +130,7 @@ export class RestService {
  isLoggedIn(){
     this.storage.get('session').then((response) => {
       if(response){
-        //this.authState.next(true);
+        this.authState.next(true);
       }
       /*prueba de sesión descomentar el else para pruebas*/
         /*else{
@@ -130,6 +142,14 @@ export class RestService {
         });
       }*/
     });
+  }
+
+ isAuthenticacated(){
+    return this.authState.value;
+  }
+
+  authUserData(){
+    return this.storage.get('session');
   }
 
 }

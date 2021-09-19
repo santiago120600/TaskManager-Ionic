@@ -1,13 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>
-      Albums
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-button routerLink="/login">
-        Login
-    </ion-button>
+    <ion-button (click)="close_sess()" color="primary">Cerrar sesión</ion-button>
 </ion-content>
