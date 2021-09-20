@@ -11,7 +11,7 @@ import { Platform } from '@ionic/angular';
 })
 export class RestService {
 
-  apiUrl = "http://localhost:8000/";
+  apiUrl = "http://192.168.100.7:8000/";
   public authState =  new BehaviorSubject(false);
   private httpClientFiles: HttpClient;
 
@@ -51,7 +51,6 @@ export class RestService {
       message: 'Autenticando...'
     });
     await loading.present();
-    console.info(this.apiUrl);
     return this.http.post<any>(this.apiUrl+"login",_data).subscribe(result =>{
       loading.dismiss();
       if(result.status == "200"){
@@ -66,7 +65,6 @@ export class RestService {
           this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       }
     },(err) => {
-      console.info(err);
       this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       loading.dismiss();
     });
@@ -77,10 +75,8 @@ export class RestService {
       message: 'Verificando...'
     });
     await loading.present();
-    console.info(this.apiUrl);
     return this.http.post<any>(this.apiUrl+"register",_data).subscribe(result =>{
       loading.dismiss();
-      console.log(result);
       if(result.status == "201"){
           this.storage.set('session',result.data);
           localStorage.setItem('token',result.token);
@@ -93,7 +89,6 @@ export class RestService {
           this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       }
     },(err) => {
-      console.info(err);
       this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       loading.dismiss();
     });
