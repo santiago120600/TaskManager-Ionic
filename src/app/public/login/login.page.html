@@ -1,8 +1,8 @@
-<ion-content>
-    <ion-grid style="height:100%; display:flex; align-items:center;">
-        <ion-row class="" style="width:100%">
+<ion-content fullscreen>
+    <div class="container">
+        <ion-row class="row">
             <ion-col>
-                <ion-card size="4" size-sm="6" size-md="7" size-lg="8" size-xl="3" >
+                <ion-card>
                     <form (ngSubmit)="do_login();" [formGroup]="loginForm">
                         <ion-card-content>
                             <ion-item>
@@ -20,8 +20,8 @@
                         </ion-card-header>
                     </form>
                 </ion-card>
-             </ion-col>
-          </ion-row>
-    </ion-grid>
+            </ion-col>
+        </ion-row>
+    </div>
 </ion-content>
 

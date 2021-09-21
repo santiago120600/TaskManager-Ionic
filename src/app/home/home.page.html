@@ -1,46 +1,58 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-item lines="none">
-      <ion-label style="font-weight: 800; font-size: 3em;">
-        Today
-        <p style="font-weight:400; color: #433465">{{today | date: 'fullDate'}}</p>
-      </ion-label>
-    </ion-item>
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Menú</ion-title>
+     <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon slot="icon-only" ios="ellipsis-vertical" md="ellipsis-vertical"></ion-icon>
+        </ion-button>
+     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
     <ion-button (click)="close_sess()" color="primary">Cerrar sesión</ion-button>
-    
-    <ion-card *ngFor="let item of notesList">
-      <ion-card-header>
-        <ion-card-subtitle [style.color]="item.completed === true ? 'green' : 'red'">
-          {{item.folder}}
-        </ion-card-subtitle>
+    <div class="container">
+      <ion-row>
+        <ion-col>
+          <ion-card *ngFor="let item of notesList">
+            <ion-card-header>
+              <ion-card-subtitle [style.color]="item.completed === true ? 'green' : 'red'">
+                {{item.folder}}
+              </ion-card-subtitle>
 
-        <ion-item>
-          <ion-icon size="small" name="ellipse"></ion-icon>
-          <ion-label>{{item.desc_task}}</ion-label>
-        </ion-item>
+              <ion-item>
+                <ion-icon size="small" name="ellipse"></ion-icon>
+                <ion-label>{{item.desc_task}}</ion-label>
+              </ion-item>
 
-        <ion-card-title>
-          {{item.title_task}}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-          <ion-label>{{item.updated_at | date:'fullDate'}}</ion-label>
-          <ion-row>
-            <ion-item lines="none">
-              <ion-icon name="checkmark-outline"></ion-icon>
-              <p>Completado</p>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-icon name="trash-outline"></ion-icon>
-              <p>Borrar</p>
-            </ion-item>
-          </ion-row>
-      </ion-card-content>
-    </ion-card>
+              <ion-card-title>
+                {{item.title_task}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label>{{item.updated_at | date:'fullDate'}}</ion-label>
+                <ion-row>
+                  <ion-item lines="none">
+                    <ion-button fill="outline" color="success" size="default">
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                      <p>Completado</p>
+                    </ion-button>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-button fill="outline" color="danger" size="default">
+                      <ion-icon name="trash-outline"></ion-icon>
+                      <p>Borrar</p>
+                    </ion-button>
+                  </ion-item>
+                </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>

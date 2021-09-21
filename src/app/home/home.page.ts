@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RestService } from '../services/rest.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomePage {
 
   constructor(
     private restService : RestService,
+    private menu: MenuController
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
