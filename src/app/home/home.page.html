@@ -42,7 +42,7 @@
                     </ion-button>
                   </ion-item>
                   <ion-item lines="none">
-                    <ion-button fill="outline" color="danger" size="default">
+                    <ion-button fill="outline" color="danger" size="default" (click)="delete_note(item.id_task)" >
                       <ion-icon name="trash-outline"></ion-icon>
                       <p>Borrar</p>
                     </ion-button>
@@ -55,7 +55,7 @@
     </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="new_note()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

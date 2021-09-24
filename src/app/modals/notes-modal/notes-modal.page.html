@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Nueva nota</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss();">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-sm="6" size-md="6" size-lg="12" size="12" color="primary"> 
+      <ion-card>
+        <form (ngSubmit)="new_note()" [formGroup]="noteForm">
+          <ion-card-content>
+              <!-- input -->
+              <ion-item>
+                <ion-label position="floating">Descripción:</ion-label>
+                <ion-input type="text" formControlName="desc_task"></ion-input>
+              </ion-item>
+              <div class="ion-text-end" *ngIf="form_sent && noteForm.controls.desc_task.invalid">
+                <ion-text color="danger">Descripción requerida.</ion-text>
+              </div>
+          </ion-card-content>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-button expand="block" fill="outline" type="submit">Crear</ion-button>
+            </ion-col>
+          </ion-row>
+          </form>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

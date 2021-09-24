@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RestService } from '../services/rest.service';
 import { MenuController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,8 @@ export class HomePage {
 
   constructor(
     private restService : RestService,
-    private menu: MenuController
+    private menu: MenuController,
+    private modalController: ModalController,
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
@@ -38,6 +41,19 @@ export class HomePage {
     this.restService.get_method(`task?user_id=${user['id_user']}`,'').subscribe(result =>{
       this.notesList = result.data;
     });
+  }
+
+  delete_note(task_id){
+    this.restService.delete_method(`task/${task_id}`,'').subscribe(result =>{
+      this.load_notes();
+    });  
+  }
+
+  async new_note(){
+    const modal = await this.modalController.create({
+      component: NotesModalPage
+    });
+    return await modal.present();
   }
 
 }

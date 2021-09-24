@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'register-modal',
     loadChildren: () => import('./modals/register-modal/register-modal.module').then( m => m.RegisterModalPageModule)
   },
+  {
+    path: 'notes-modal',
+    loadChildren: () => import('./modals/notes-modal/notes-modal.module').then( m => m.NotesModalPageModule)
+  },
 ];
 
 @NgModule({
