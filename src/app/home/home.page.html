@@ -13,7 +13,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-button (click)="close_sess()" color="primary">Cerrar sesión</ion-button>
     <div class="container">
       <ion-row>
         <ion-col>
@@ -55,7 +54,7 @@
     </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="new_note()">
+    <ion-fab-button (click)="new_note()" color="tertiary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

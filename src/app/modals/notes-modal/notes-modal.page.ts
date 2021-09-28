@@ -8,6 +8,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
+import * as moment from 'moment';
 @Component({
   selector: 'app-notes-modal',
   templateUrl: './notes-modal.page.html',
@@ -24,6 +25,8 @@ export class NotesModalPage implements OnInit {
   ) {
     this.noteForm = this.formBuilder.group({
       desc_task: new FormControl("", Validators.compose([Validators.required])),
+      title_task: new FormControl("", Validators.compose([Validators.required])),
+      due_date_task: new FormControl("", Validators.compose([Validators.required])),
     });
   }
 
@@ -48,8 +51,10 @@ export class NotesModalPage implements OnInit {
       //for (const key in  form_data){
         //data = {key : form_data[key]};
       //}
+      var date = moment(form_data['due_date_task']).format('YYYY-MM-DD');
       //data = {...data, 'user': id_user};
-      this.restService.post_method('task',{'desc_task':form_data['desc_task'], 'user':id_user}).subscribe(result =>{
+      console.log(form_data['due_date_task']);
+      this.restService.post_method('task',{'desc_task':form_data['desc_task'], 'user':id_user,'title_task':form_data['title_task'],'due_date_task':date}).subscribe(result =>{
       // si no hay errores al registrar entonces cerrar el modal
         this.dismiss()
         //this.notesPage.load_notes();

@@ -1,36 +1,37 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Nueva nota</ion-title>
+<ion-header  class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Agregar Nueva Tarea</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss();">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+        <ion-icon slot="end" name="close" size="larger" class="ion-padding"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row class="ion-justify-content-center">
-    <ion-col size-sm="6" size-md="6" size-lg="12" size="12" color="primary"> 
-      <ion-card>
-        <form (ngSubmit)="new_note()" [formGroup]="noteForm">
-          <ion-card-content>
-              <!-- input -->
-              <ion-item>
-                <ion-label position="floating">Descripción:</ion-label>
-                <ion-input type="text" formControlName="desc_task"></ion-input>
-              </ion-item>
-              <div class="ion-text-end" *ngIf="form_sent && noteForm.controls.desc_task.invalid">
-                <ion-text color="danger">Descripción requerida.</ion-text>
-              </div>
-          </ion-card-content>
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-button expand="block" fill="outline" type="submit">Crear</ion-button>
-            </ion-col>
-          </ion-row>
-          </form>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+  <ion-card class="ion-align-self-center">
+    <form (ngSubmit)="new_note()" [formGroup]="noteForm">
+      <!-- input -->
+      <ion-item>
+        <ion-label position="floating">Titulo</ion-label>
+        <ion-input type="text" formControlName="title_task"></ion-input>
+      </ion-item>
+      <!-- input -->
+      <ion-item>
+        <ion-textarea type="text" formControlName="desc_task" placeholder="Escribe aqui"></ion-textarea>
+      </ion-item>
+      <div class="ion-text-end" *ngIf="form_sent && noteForm.controls.desc_task.invalid">
+        <ion-text color="danger">Descripción requerida.</ion-text>
+      </div>
+      <!-- input -->
+      <ion-item>
+         <ion-icon name="calendar-outline"slot="start"></ion-icon>
+         <ion-label >Fecha de vencimiento</ion-label>
+         <ion-datetime displayFormat="D MMM YYYY" formControlName="due_date_task"></ion-datetime>
+       </ion-item>
+
+        <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">Agregar</ion-button>
+      </form>
+  </ion-card>
 </ion-content>
