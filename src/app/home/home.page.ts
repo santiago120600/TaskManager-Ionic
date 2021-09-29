@@ -56,4 +56,12 @@ export class HomePage {
     return await modal.present();
   }
 
+  async update_note(id_note){
+    const modal = await this.modalController.create({
+      component: NotesModalPage,
+      componentProps: {note: id_note}
+    });
+    return await modal.present();
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import {
@@ -17,6 +17,12 @@ import * as moment from 'moment';
 export class NotesModalPage implements OnInit {
   public noteForm: FormGroup;
   form_sent = false;
+  @Input() note;
+
+  title;
+  due_date;
+  desc;
+  title_modal =  "Agregar Nueva";
 
   constructor(
     private modalController: ModalController,
@@ -31,6 +37,14 @@ export class NotesModalPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.note){
+      this.noteForm.setValue({
+        title_task: this.note.title_task, 
+        desc_task: this.note.desc_task,
+        due_date_task:this.note.due_date_task 
+      });
+      this.title_modal = "Actualizar";
+    }
   }
 
  dismiss() {
@@ -40,25 +54,31 @@ export class NotesModalPage implements OnInit {
   }
 
 
-  async new_note(){
+  async createOrUpdate(){
     this.form_sent = true;
     if (this.noteForm.invalid) {
       return;
     } else {
       var {id_user} = await this.restService.authUserData();
       var form_data = this.noteForm.value;
-      //var data = {};
-      //for (const key in  form_data){
-        //data = {key : form_data[key]};
-      //}
       var date = moment(form_data['due_date_task']).format('YYYY-MM-DD');
-      //data = {...data, 'user': id_user};
-      console.log(form_data['due_date_task']);
-      this.restService.post_method('task',{'desc_task':form_data['desc_task'], 'user':id_user,'title_task':form_data['title_task'],'due_date_task':date}).subscribe(result =>{
-      // si no hay errores al registrar entonces cerrar el modal
-        this.dismiss()
-        //this.notesPage.load_notes();
-      });
+      var data ={'desc_task':form_data['desc_task'], 'user':id_user,'title_task':form_data['title_task'],'due_date_task':date};
+      if(this.note){
+        this.restService.put_method(`task/${this.note.id_task}`,data).subscribe(result =>{
+          this.dismiss()
+        });
+      }else{
+        //var data = {};
+        //for (const key in  form_data){
+          //data = {key : form_data[key]};
+        //}
+        //data = {...data, 'user': id_user};
+        this.restService.post_method('task',data).subscribe(result =>{
+        // si no hay errores al registrar entonces cerrar el modal
+          this.dismiss()
+          //this.notesPage.load_notes();
+        });
+      }
     }
   }
 

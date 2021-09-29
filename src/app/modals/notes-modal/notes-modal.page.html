@@ -1,6 +1,6 @@
 <ion-header  class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Agregar Nueva Tarea</ion-title>
+    <ion-title>{{title_modal}} Tarea</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss();">
         <ion-icon slot="end" name="close" size="larger" class="ion-padding"></ion-icon>
@@ -11,12 +11,15 @@
 
 <ion-content>
   <ion-card class="ion-align-self-center">
-    <form (ngSubmit)="new_note()" [formGroup]="noteForm">
+    <form (ngSubmit)="createOrUpdate()" [formGroup]="noteForm">
       <!-- input -->
       <ion-item>
         <ion-label position="floating">Titulo</ion-label>
         <ion-input type="text" formControlName="title_task"></ion-input>
       </ion-item>
+      <div class="ion-text-end" *ngIf="form_sent && noteForm.controls.title_task.invalid">
+        <ion-text color="danger">Titulo requerido.</ion-text>
+      </div>
       <!-- input -->
       <ion-item>
         <ion-textarea type="text" formControlName="desc_task" placeholder="Escribe aqui"></ion-textarea>
