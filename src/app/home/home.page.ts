@@ -53,14 +53,22 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: NotesModalPage
     });
+    modal.onDidDismiss().then(()=>{
+        this.load_notes();
+      });
     return await modal.present();
   }
 
   async update_note(id_note){
     const modal = await this.modalController.create({
       component: NotesModalPage,
-      componentProps: {note: id_note}
+      componentProps: {
+        note: id_note
+      }
     });
+    modal.onDidDismiss().then(()=>{
+        this.load_notes();
+      });
     return await modal.present();
   }
 
