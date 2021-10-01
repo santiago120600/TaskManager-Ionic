@@ -25,6 +25,10 @@ const routes: Routes = [
     path: 'notes-modal',
     loadChildren: () => import('./modals/notes-modal/notes-modal.module').then( m => m.NotesModalPageModule)
   },
+  {
+    path: 'mini-menu',
+    loadChildren: () => import('./mini-menu/mini-menu.module').then( m => m.MiniMenuPageModule)
+  },
 ];
 
 @NgModule({

@@ -3,6 +3,8 @@ import { RestService } from '../services/rest.service';
 import { MenuController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
+import { PopoverController } from '@ionic/angular';
+import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomePage {
     private restService : RestService,
     private menu: MenuController,
     private modalController: ModalController,
+    private popoverController: PopoverController
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
@@ -30,10 +33,6 @@ export class HomePage {
   }
 
  ngOnInit() {
-  }
-
-  close_sess(){
-      this.restService.logout();
   }
 
   async load_notes(){
@@ -70,6 +69,15 @@ export class HomePage {
         this.load_notes();
       });
     return await modal.present();
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: MiniMenuPage,
+      event: ev,
+      translucent: true,
+    });
+    await popover.present();
   }
 
 }
