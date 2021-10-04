@@ -13,32 +13,24 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="container">
-      <ion-row>
-        <ion-col>
-          <ion-card *ngFor="let item of notesList" (click)="update_note(item)">
-            <ion-card-header>
-              <ion-card-subtitle [style.color]="item.completed === true ? 'green' : 'red'">
-                {{item.folder}}
-              </ion-card-subtitle>
-
-              <ion-item>
-                <ion-icon size="small" name="ellipse"></ion-icon>
-                <ion-label>{{item.desc_task}}</ion-label>
-              </ion-item>
-
-              <ion-card-title>
-                {{item.title_task}}
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-label>{{item.updated_at | date:'fullDate'}}</ion-label>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </div>
-
+  <div class="">
+    <ion-row>
+      <ion-col>
+        <ion-list class="ion-margin-top">
+          <ion-item-sliding *ngFor="let item of notesList">
+            <ion-item  (click)="update_note(item)">
+              <ion-icon slot="start" size="small" name="ellipse"></ion-icon>
+              <ion-label>{{item.desc_task}}</ion-label>
+              <ion-note slot="end" color="primary">{{item.updated_at | date:'fullDate'}}</ion-note>
+             </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="delete_note(item.id_task)">Delete</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="new_note()" color="tertiary">
       <ion-icon name="add"></ion-icon>

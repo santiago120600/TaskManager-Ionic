@@ -7,9 +7,11 @@ ion-content{
 }
 .container {
     height:100%;
+    width: 80%;
     display: flex;
     align-content: center;
     justify-content: center;
+    background-color:#ff0000;
 }
 
 .row { 
