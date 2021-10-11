@@ -17,7 +17,7 @@ export class AppComponent {
    this.platform.ready().then(() => {
       this.restService.authState.subscribe(state => {
         if(state){
-          this.navCtrl.navigateRoot(['home']);
+          this.navCtrl.navigateRoot(['select-project-menu']);
         }else{
           this.navCtrl.navigateRoot(['login']);
         }

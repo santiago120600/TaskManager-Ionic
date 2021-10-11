@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 import { PopoverController } from '@ionic/angular';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,6 @@ import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   session;
 
   notesList = [];
@@ -23,7 +23,8 @@ export class HomePage {
     private restService : RestService,
     private menu: MenuController,
     private modalController: ModalController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private route : ActivatedRoute,
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
@@ -36,8 +37,8 @@ export class HomePage {
   }
 
   async load_notes(){
-    var user = await this.restService.authUserData();
-    this.restService.get_method(`task?user_id=${user['id_user']}`,'').subscribe(result =>{
+    var id_project = this.route.snapshot.paramMap.get('id_project');
+    this.restService.get_method(`task?project_id=${id_project}`,'').subscribe(result =>{
       this.notesList = result.data;
     });
   }

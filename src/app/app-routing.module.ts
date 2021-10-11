@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'mini-menu',
     loadChildren: () => import('./mini-menu/mini-menu.module').then( m => m.MiniMenuPageModule)
   },
+  {
+    path: 'select-project-menu',
+    loadChildren: () => import('./select-project-menu/select-project-menu.module').then( m => m.SelectProjectMenuPageModule)
+  },
 ];
 
 @NgModule({
