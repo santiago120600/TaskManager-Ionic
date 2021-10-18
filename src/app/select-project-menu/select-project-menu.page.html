@@ -2,7 +2,7 @@
   <ion-toolbar color="tertiary">
     <ion-title>Proyectos</ion-title>
      <ion-buttons slot="end">
-        <ion-button>
+       <ion-button (click)="new_project();">
          <ion-icon slot="icon-only" name="add"></ion-icon>
        </ion-button>
        <ion-button (click)="presentPopover($event)">

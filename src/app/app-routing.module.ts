@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'select-project-menu',
     loadChildren: () => import('./select-project-menu/select-project-menu.module').then( m => m.SelectProjectMenuPageModule)
   },
+  {
+    path: 'projects-modal',
+    loadChildren: () => import('./modals/projects-modal/projects-modal.module').then( m => m.ProjectsModalPageModule)
+  },
 ];
 
 @NgModule({

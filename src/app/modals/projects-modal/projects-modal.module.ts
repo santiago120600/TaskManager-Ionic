@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SelectProjectMenuPageRoutingModule } from './select-project-menu-routing.module';
+import { ProjectsModalPageRoutingModule } from './projects-modal-routing.module';
 
-import { SelectProjectMenuPage } from './select-project-menu.page';
+import { ProjectsModalPage } from './projects-modal.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SelectProjectMenuPageRoutingModule,
+    ProjectsModalPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [SelectProjectMenuPage]
+  declarations: [ProjectsModalPage]
 })
-export class SelectProjectMenuPageModule {}
+export class ProjectsModalPageModule {}

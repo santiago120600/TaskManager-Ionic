@@ -1,0 +1,26 @@
+<ion-header  class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{title_modal}}  Proyecto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss();">
+        <ion-icon slot="end" name="close" size="larger" class="ion-padding"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-align-self-center">
+    <form (ngSubmit)="createOrUpdate()" [formGroup]="projectForm">
+      <!-- input -->
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" formControlName="name_project"></ion-input>
+      </ion-item>
+      <div class="ion-text-end" *ngIf="form_sent && projectForm.controls.name_project.invalid">
+        <ion-text color="danger">Nombre de proyecto requerido.</ion-text>
+      </div>
+        <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">Agregar</ion-button>
+      </form>
+  </ion-card>
+</ion-content>

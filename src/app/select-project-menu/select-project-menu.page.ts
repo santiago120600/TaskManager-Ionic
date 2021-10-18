@@ -3,7 +3,8 @@ import { RestService } from '../services/rest.service';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
-
+import { ModalController } from '@ionic/angular';
+import { ProjectsModalPage } from '../modals/projects-modal/projects-modal.page';
 @Component({
   selector: 'app-select-project-menu',
   templateUrl: './select-project-menu.page.html',
@@ -17,6 +18,7 @@ export class SelectProjectMenuPage implements OnInit {
     private restService : RestService,
     private router : Router,
     private popoverController: PopoverController,
+    private modalController: ModalController,
   ) {
     this.load_projects();
   }
@@ -43,6 +45,16 @@ export class SelectProjectMenuPage implements OnInit {
 
   goToPanel(id_project){
    this.router.navigate(['/home',{id_project:id_project}]);
+  }
+
+  async new_project(){
+    const modal = await this.modalController.create({
+      component: ProjectsModalPage
+    });
+    modal.onDidDismiss().then(()=>{
+        this.load_projects();
+      });
+    return await modal.present();
   }
 
 }
