@@ -57,4 +57,17 @@ export class SelectProjectMenuPage implements OnInit {
     return await modal.present();
   }
 
+  async update_project(project){
+    const modal = await this.modalController.create({
+      component: ProjectsModalPage,
+      componentProps: {
+        project: project
+      }
+    });
+    modal.onDidDismiss().then(()=>{
+        this.load_projects();
+      });
+    return await modal.present();
+  }
+
 }

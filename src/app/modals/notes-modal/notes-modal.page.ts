@@ -23,6 +23,7 @@ export class NotesModalPage implements OnInit {
   due_date;
   desc;
   title_modal =  "Agregar Nueva";
+  button_txt = "Agregar"
 
   constructor(
     private modalController: ModalController,
@@ -43,7 +44,7 @@ export class NotesModalPage implements OnInit {
         desc_task: this.note.desc_task,
         due_date_task:this.note.due_date_task 
       });
-      this.title_modal = "Actualizar";
+      this.title_modal = this.button_txt = "Actualizar";
     }
   }
 
@@ -76,7 +77,6 @@ export class NotesModalPage implements OnInit {
         this.restService.post_method('task',data).subscribe(result =>{
         // si no hay errores al registrar entonces cerrar el modal
           this.dismiss()
-          //this.notesPage.load_notes();
         });
       }
     }

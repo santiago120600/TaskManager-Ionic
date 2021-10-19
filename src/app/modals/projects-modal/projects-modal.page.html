@@ -1,6 +1,11 @@
 <ion-header  class="ion-no-border">
   <ion-toolbar>
-    <ion-title>{{title_modal}}  Proyecto</ion-title>
+    <ion-buttons>
+      <ion-button *ngIf="project" (click)="delete_project(id_project);">
+        <ion-icon color="danger"  name="trash-outline" size="larger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title_modal}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss();">
         <ion-icon slot="end" name="close" size="larger" class="ion-padding"></ion-icon>
@@ -17,10 +22,7 @@
         <ion-label position="floating">Nombre</ion-label>
         <ion-input type="text" formControlName="name_project"></ion-input>
       </ion-item>
-      <div class="ion-text-end" *ngIf="form_sent && projectForm.controls.name_project.invalid">
-        <ion-text color="danger">Nombre de proyecto requerido.</ion-text>
-      </div>
-        <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">Agregar</ion-button>
+      <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">{{button_txt}}</ion-button>
       </form>
   </ion-card>
 </ion-content>

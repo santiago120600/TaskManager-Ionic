@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { RestService } from '../services/rest.service';
-import { MenuController } from '@ionic/angular';
-import { ModalController } from '@ionic/angular';
+import { MenuController, ModalController, PopoverController } from '@ionic/angular';
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
-import { PopoverController } from '@ionic/angular';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ActivatedRoute } from '@angular/router';
 
@@ -59,11 +57,11 @@ export class HomePage {
     return await modal.present();
   }
 
-  async update_note(id_note){
+  async update_note(note){
     const modal = await this.modalController.create({
       component: NotesModalPage,
       componentProps: {
-        note: id_note
+        note: note
       }
     });
     modal.onDidDismiss().then(()=>{
