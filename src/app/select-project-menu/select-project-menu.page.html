@@ -20,4 +20,13 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid *ngIf="projects.length == 0">
+    <ion-row>
+      <ion-col>
+        <ion-text color="secondary">
+          <h1 class="ion-text-center">No hay proyectos aún</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

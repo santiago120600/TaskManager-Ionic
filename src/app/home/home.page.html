@@ -29,4 +29,13 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-grid *ngIf="notesList.length == 0">
+    <ion-row>
+      <ion-col>
+        <ion-text color="secondary">
+          <h1 class="ion-text-center">No hay notas aún</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

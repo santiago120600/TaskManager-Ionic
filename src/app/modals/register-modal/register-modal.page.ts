@@ -4,7 +4,6 @@ import {
   FormControl,
   FormGroup,
   FormBuilder,
-  Validator,
   Validators
 } from "@angular/forms";
 import { AlertController } from "@ionic/angular";
@@ -29,7 +28,7 @@ export class RegisterModalPage implements OnInit {
       first_name: new FormControl("", Validators.compose([Validators.required])),
       last_name: new FormControl("", Validators.compose([Validators.required])),
       email: new FormControl("", Validators.compose([Validators.required])),
-      password: new FormControl("", Validators.compose([Validators.required])),
+      password: new FormControl("", Validators.compose([Validators.required, Validators.minLength(8)])),
       username: new FormControl("", Validators.compose([Validators.required]))
     });
   }
@@ -50,8 +49,7 @@ export class RegisterModalPage implements OnInit {
       return;
     } else {
       this.restService.register(this.registerForm.value);
-      // si no hay errores al registrar entonces cerrar el modal
-      this.dismiss()
+      //this.dismiss()
     }
   }
 

@@ -45,7 +45,8 @@
                 <ion-input type="password" formControlName="password"></ion-input>
               </ion-item>
               <div class="ion-text-end" *ngIf="form_sent && registerForm.controls.password.invalid">
-                <ion-text color="danger">Contraseña requerido.</ion-text>
+                <ion-text color="danger" *ngIf="registerForm.controls.password.errors.required">Contraseña requerida.</ion-text>
+                <ion-text color="danger" *ngIf="registerForm.controls.password.errors.minlength">La contraseña debe tener al menos 8 carácteres.</ion-text>
               </div>
               <!-- input -->
               <ion-item>

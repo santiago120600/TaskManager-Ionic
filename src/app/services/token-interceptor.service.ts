@@ -9,13 +9,16 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
+import { RestService } from './rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private restService : RestService,
+  ) {}
     
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
@@ -46,6 +49,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
+        this.restService.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
         return throwError(error);
       }));
 

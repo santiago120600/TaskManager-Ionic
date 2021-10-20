@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RestService } from '../services/rest.service';
-import { MenuController, ModalController, PopoverController } from '@ionic/angular';
+import { MenuController, ModalController, PopoverController, LoadingController } from '@ionic/angular';
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +23,7 @@ export class HomePage {
     private modalController: ModalController,
     private popoverController: PopoverController,
     private route : ActivatedRoute,
+    private loadingController : LoadingController,
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
@@ -35,10 +36,15 @@ export class HomePage {
   }
 
   async load_notes(){
+    const loading = await this.loadingController.create({
+      message: 'Espere...'
+    });
+    await loading.present();
     var id_project = this.route.snapshot.paramMap.get('id_project');
     this.restService.get_method(`task?project_id=${id_project}`,'').subscribe(result =>{
       this.notesList = result.data;
     });
+    loading.dismiss();
   }
 
   delete_note(task_id){

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import {BehaviorSubject} from 'rxjs';
 import { Platform } from '@ionic/angular';
@@ -22,6 +22,7 @@ export class RestService {
     private storage : Storage,
     private handler : HttpBackend,
     private platform : Platform,
+    private modalController: ModalController,
   ) { 
     this.storage.create();
      this.platform.ready().then(()=>{
@@ -80,11 +81,15 @@ export class RestService {
       if(result.status == "201"){
           this.storage.set('session',result.data);
           localStorage.setItem('token',result.token);
-          // redirigir a home
           this.authState.next(true);
-          //this.display_toast('Success',"success",result.message,'top',4000);
+          this.modalController.dismiss({dismissed: true});
       }else if(result.status=="400"){
-          this.display_toast('Error',"danger",result.message,'top',4000);
+        console.log(result);
+        if(result.validations.email && result.validations.email[0] == "Este campo debe ser único."){
+          this.display_toast('Error',"warning","Este email ya existe",'top',4000);
+        }else if(result.validations.username && result.validations.username[0] == "Ya existe un usuario con este nombre."){
+          this.display_toast('Error',"warning","Este nombre de usuario ya fue tomado",'top',4000);
+        }
       }else{
           this.display_toast('Error',"danger","Error de comunicación, intente más tarde",'top',4000);
       }
