@@ -4,6 +4,7 @@ import { MenuController, ModalController, PopoverController, LoadingController }
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ActivatedRoute } from '@angular/router';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 export class HomePage {
   session;
 
-  notesList = [];
-
   today : number = Date.now();
+
+  todo = [];
+
+  done = [];
 
   constructor(
     private restService : RestService,
@@ -42,7 +45,20 @@ export class HomePage {
     await loading.present();
     var id_project = this.route.snapshot.paramMap.get('id_project');
     this.restService.get_method(`task?project_id=${id_project}`,'').subscribe(result =>{
-      this.notesList = result.data;
+      this.todo = result.data.filter(item =>{
+        if(item.completed == false){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      this.done = result.data.filter(item =>{
+        if(item.completed == false){
+          return false;
+        }else{
+          return true;
+        }
+      });
     });
     loading.dismiss();
   }
@@ -83,6 +99,21 @@ export class HomePage {
       translucent: true,
     });
     await popover.present();
+  }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    // aqui hacer lo de cambiar completed a false o true
+      //console.log("event ",event.container.data);
+      console.log("event ",event.container.data);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
 }
