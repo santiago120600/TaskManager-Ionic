@@ -39,10 +39,6 @@ export class HomePage {
   }
 
   async load_notes(){
-    const loading = await this.loadingController.create({
-      message: 'Espere...'
-    });
-    await loading.present();
     var id_project = this.route.snapshot.paramMap.get('id_project');
     this.restService.get_method(`task?project_id=${id_project}`,'').subscribe(result =>{
       this.todo = result.data.filter(item =>{
@@ -60,7 +56,6 @@ export class HomePage {
         }
       });
     });
-    loading.dismiss();
   }
 
   delete_note(task_id){
@@ -71,7 +66,10 @@ export class HomePage {
 
   async new_note(){
     const modal = await this.modalController.create({
-      component: NotesModalPage
+      component: NotesModalPage,
+      componentProps:{
+        id_project: this.route.snapshot.paramMap.get('id_project')
+      }
     });
     modal.onDidDismiss().then(()=>{
         this.load_notes();
@@ -103,17 +101,23 @@ export class HomePage {
 
 
   drop(event: CdkDragDrop<string[]>) {
-    // aqui hacer lo de cambiar completed a false o true
-      //console.log("event ",event.container.data);
-      console.log("event ",event.container.data);
+    var task = event.previousContainer.data[event.previousIndex];
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      return;
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      this.changeCompleted(task);
     }
+  }
+
+  changeCompleted(task){
+    task['completed'] = (task['completed'] == true ? false : true);
+    this.restService.put_method(`task/${task['id_task']}`,task).subscribe(result =>{
+      this.load_notes();
+    });  
   }
 
 }

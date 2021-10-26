@@ -18,10 +18,12 @@ export class NotesModalPage implements OnInit {
   public noteForm: FormGroup;
   form_sent = false;
   @Input() note;
+  @Input() id_project;
 
   title;
   due_date;
   desc;
+  completed = false;
   title_modal =  "Agregar Nueva";
   button_txt = "Agregar"
 
@@ -34,6 +36,7 @@ export class NotesModalPage implements OnInit {
       desc_task: new FormControl("", Validators.compose([Validators.required])),
       title_task: new FormControl("", Validators.compose([Validators.required])),
       due_date_task: new FormControl("", Validators.compose([Validators.required])),
+      completed: new FormControl(),
     });
   }
 
@@ -42,9 +45,10 @@ export class NotesModalPage implements OnInit {
       this.noteForm.setValue({
         title_task: this.note.title_task, 
         desc_task: this.note.desc_task,
-        due_date_task:this.note.due_date_task 
+        due_date_task:this.note.due_date_task, 
       });
       this.title_modal = this.button_txt = "Actualizar";
+      this.completed = (this.note.completed) ? true : false; 
     }
   }
 
@@ -58,12 +62,12 @@ export class NotesModalPage implements OnInit {
   async createOrUpdate(){
     this.form_sent = true;
     if (this.noteForm.invalid) {
+      //console.log(this.noteForm.value['completed']);
       return;
     } else {
-      var {id_user} = await this.restService.authUserData();
       var form_data = this.noteForm.value;
       var date = moment(form_data['due_date_task']).format('YYYY-MM-DD');
-      var data ={'desc_task':form_data['desc_task'], 'user':id_user,'title_task':form_data['title_task'],'due_date_task':date};
+      var data ={'desc_task':form_data['desc_task'], 'project':this.id_project,'title_task':form_data['title_task'],'due_date_task':date};
       if(this.note){
         this.restService.put_method(`task/${this.note.id_task}`,data).subscribe(result =>{
           this.dismiss()
