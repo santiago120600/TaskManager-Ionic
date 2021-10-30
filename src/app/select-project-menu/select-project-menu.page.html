@@ -16,7 +16,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="6">
-        <ion-button expand="block" *ngFor="let project of projects" (click)="goToPanel(project.id)">{{project.name_project}}</ion-button>
+        <ion-button expand="block" fill="outline" *ngFor="let project of projects" (click)="goToPanel(project.id)">{{project.name_project}}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

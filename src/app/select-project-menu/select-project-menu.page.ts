@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../services/rest.service';
 import { Router } from '@angular/router';
-import { PopoverController, LoadingController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ModalController } from '@ionic/angular';
 import { ProjectsModalPage } from '../modals/projects-modal/projects-modal.page';
@@ -20,7 +20,6 @@ export class SelectProjectMenuPage implements OnInit {
     private router : Router,
     private popoverController: PopoverController,
     private modalController: ModalController,
-    private loadingController : LoadingController,
   ) {
     this.load_projects();
   }
@@ -39,15 +38,10 @@ export class SelectProjectMenuPage implements OnInit {
   }
 
   async load_projects(){
-    const loading = await this.loadingController.create({
-      message: 'Espere...'
-    });
-    await loading.present();
     var user = await this.restService.authUserData();
     this.restService.get_method(`project?user_id=${user['id_user']}`,'').subscribe(result =>{
       this.projects = result.data;
     });
-    loading.dismiss();
   }
 
   goToPanel(id_project){

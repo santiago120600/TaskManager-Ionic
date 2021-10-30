@@ -100,11 +100,6 @@ export class NotesModalPage implements OnInit {
           this.dismiss()
         });
       }else{
-        //var data = {};
-        //for (const key in  form_data){
-          //data = {key : form_data[key]};
-        //}
-        //data = {...data, 'user': id_user};
         this.restService.post_method('task',data).subscribe(result =>{
         // si no hay errores al registrar entonces cerrar el modal
           this.dismiss()
