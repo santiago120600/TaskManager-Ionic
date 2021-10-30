@@ -1,5 +1,10 @@
 <ion-header  class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons>
+      <ion-button *ngIf="note" (click)="delete_note(id_task);">
+        <ion-icon color="danger"  name="trash-outline" size="larger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>{{title_modal}} Tarea</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss();">
@@ -36,7 +41,7 @@
       <!-- input -->
        <ion-item lines="none">
          <ion-label>Completado</ion-label>
-         <ion-toggle slot="start" formControlName="completed"></ion-toggle>
+         <ion-toggle slot="start"></ion-toggle>
         </ion-item>
        <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">{{button_txt}}</ion-button>
       </form>

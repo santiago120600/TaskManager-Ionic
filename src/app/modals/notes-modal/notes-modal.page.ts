@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import {
   FormControl,
@@ -26,17 +26,18 @@ export class NotesModalPage implements OnInit {
   completed = false;
   title_modal =  "Agregar Nueva";
   button_txt = "Agregar"
+  id_task;
 
   constructor(
     private modalController: ModalController,
     private restService : RestService,
     private formBuilder: FormBuilder,
+    public alertController: AlertController,
   ) {
     this.noteForm = this.formBuilder.group({
       desc_task: new FormControl("", Validators.compose([Validators.required])),
       title_task: new FormControl("", Validators.compose([Validators.required])),
       due_date_task: new FormControl("", Validators.compose([Validators.required])),
-      completed: new FormControl(),
     });
   }
 
@@ -49,6 +50,7 @@ export class NotesModalPage implements OnInit {
       });
       this.title_modal = this.button_txt = "Actualizar";
       this.completed = (this.note.completed) ? true : false; 
+      this.id_task = this.note.id_task;
     }
   }
 
@@ -56,6 +58,31 @@ export class NotesModalPage implements OnInit {
     this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  async delete_note(id){
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: 'Está a punto de eliminar la nota',
+      message: 'Al eliminar la nota se eliminarán las sub-tareas asosiadas',
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (i) => {}
+        }, 
+        {
+          text: 'Continuar',
+          handler: () => {
+            this.restService.delete_method(`task/${id}`,'').subscribe(result =>{
+              this.dismiss()
+              this.restService.display_toast('Correcto','success','Eliminado correctamente','bottom',4000);
+            });  
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 

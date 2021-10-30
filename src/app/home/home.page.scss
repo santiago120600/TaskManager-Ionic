@@ -18,3 +18,15 @@ ion-list{
     border-radius: 4px;
   }
 }
+
+ion-card {
+    &-title {
+        font-size:20px;
+    }
+    .hide {
+      /* Extra small devices (phones, 600px and down) */
+      @media only screen and (max-width: 620px) {
+        display: none; 
+      }
+    }
+}

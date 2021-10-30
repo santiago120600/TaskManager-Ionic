@@ -29,9 +29,16 @@
             <ion-label>To Do</ion-label>
           </ion-list-header>
           <div>
-            <ion-card *ngFor="let note of todo" cdkDrag>
+            <ion-card *ngFor="let note of todo" cdkDrag (click)="update_note(note)">
+              <ion-card-header  *ngIf="note.title_task">
+                <ion-card-title>{{note.title_task}}</ion-card-title>
+              </ion-card-header>
               <ion-card-content>
                 {{note.desc_task}}
+                <ion-item lines="none" class="hide">
+                 <ion-icon name="calendar-outline" class="hide"></ion-icon>
+                  <ion-label class="hide">{{note.updated_at | date:'fullDate'}}</ion-label>
+                </ion-item>
               </ion-card-content>
             </ion-card>
           </div>
@@ -48,9 +55,16 @@
             <ion-label>Done</ion-label>
           </ion-list-header>
           <div>
-            <ion-card *ngFor="let note of done" cdkDrag>
+            <ion-card *ngFor="let note of done" cdkDrag (click)="update_note(note)">
+              <ion-card-header  *ngIf="note.title_task">
+                <ion-card-title>{{note.title_task}}</ion-card-title>
+              </ion-card-header>
               <ion-card-content>
                 {{note.desc_task}}
+                <ion-item lines="none" class="hide">
+                 <ion-icon name="calendar-outline" class="hide"></ion-icon>
+                  <ion-label class="hide">{{note.updated_at | date:'fullDate'}}</ion-label>
+                </ion-item>
               </ion-card-content>
             </ion-card>
           </div>
