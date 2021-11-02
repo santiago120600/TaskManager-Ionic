@@ -32,7 +32,7 @@ export class ProjectsModalPage implements OnInit {
     public alertController: AlertController
   ) { 
     this.projectForm = this.formBuilder.group({
-      name_project: new FormControl("", Validators.compose([Validators.required])),
+      name_project: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(80)])),
     });
   }
 
@@ -82,8 +82,12 @@ export class ProjectsModalPage implements OnInit {
   async createOrUpdate(){
     this.form_sent = true;
     if (this.projectForm.invalid) {
-      this.dismiss();
-      this.restService.display_toast('Descartado','primary','Sin contenido','bottom',4000);
+      if(this.projectForm.controls.name_project.errors.required){
+        this.dismiss();
+        this.restService.display_toast('Descartado','primary','Sin contenido','bottom',4000);
+      }else{
+        return;
+      }
     } else {
       var {id_user} = await this.restService.authUserData();
       var form_data = this.projectForm.value;

@@ -21,6 +21,9 @@
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
         <ion-input type="text" formControlName="name_project"></ion-input>
+        <div class="ion-text-end" *ngIf="form_sent && projectForm.controls.name_project.invalid">
+          <ion-text color="danger" *ngIf="projectForm.controls.name_project.errors.maxlength">Este nombre excede el número de carácteres posible.</ion-text>
+        </div>
       </ion-item>
       <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">{{button_txt}}</ion-button>
       </form>

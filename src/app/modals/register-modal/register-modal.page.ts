@@ -6,7 +6,6 @@ import {
   FormBuilder,
   Validators
 } from "@angular/forms";
-import { AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class RegisterModalPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    public alertController: AlertController,
     private restService : RestService,
   ) {
     this.registerForm = this.formBuilder.group({
