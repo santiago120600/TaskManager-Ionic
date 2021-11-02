@@ -17,50 +17,60 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-row>
-    <ion-col size="6">
-      <ion-list
-        cdkDropList
-        #todoList="cdkDropList"
-        [cdkDropListData]="todo"
-        [cdkDropListConnectedTo]="[doneList]"
-        (cdkDropListDropped)="drop($event)">
-         <ion-list-header>
-            <ion-label>To Do</ion-label>
-          </ion-list-header>
-          <div>
-            <ion-card *ngFor="let note of todo" cdkDrag (click)="update_note(note)">
-              <ion-card-header  *ngIf="note.title_task">
-                <ion-card-title>{{note.title_task}}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                {{note.desc_task}}
-              </ion-card-content>
-            </ion-card>
-          </div>
-        </ion-list>
-    </ion-col>
-    <ion-col size="6">
-      <ion-list
-        cdkDropList
-        #doneList="cdkDropList"
-        [cdkDropListData]="done"
-        [cdkDropListConnectedTo]="[todoList]"
-        (cdkDropListDropped)="drop($event)">
-         <ion-list-header>
-            <ion-label>Done</ion-label>
-          </ion-list-header>
-          <div>
-            <ion-card *ngFor="let note of done" cdkDrag (click)="update_note(note)">
-              <ion-card-header  *ngIf="note.title_task">
-                <ion-card-title>{{note.title_task}}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                {{note.desc_task}}
-              </ion-card-content>
-            </ion-card>
-          </div>
-      </ion-list>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xs="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+      <ion-row>
+        <ion-col size="6">
+          <ion-list
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]"
+            (cdkDropListDropped)="drop($event)">
+             <ion-list-header>
+                <ion-label>To Do</ion-label>
+                <ion-button (click)="new_note()">
+                  <ion-icon name="add" color="dark"></ion-icon>
+                </ion-button>
+              </ion-list-header>
+              <div>
+                <ion-card *ngFor="let note of todo" cdkDrag (click)="update_note(note)">
+                  <ion-card-header  *ngIf="note.title_task">
+                    <ion-card-title>{{note.title_task}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    {{note.desc_task}}
+                  </ion-card-content>
+                </ion-card>
+              </div>
+            </ion-list>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]"
+            (cdkDropListDropped)="drop($event)">
+             <ion-list-header>
+                <ion-label>Done</ion-label>
+                <ion-button (click)="new_note_completed()">
+                  <ion-icon name="add" color="dark"></ion-icon>
+                </ion-button>
+              </ion-list-header>
+              <div>
+                <ion-card *ngFor="let note of done" cdkDrag (click)="update_note(note)">
+                  <ion-card-header  *ngIf="note.title_task">
+                    <ion-card-title>{{note.title_task}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    {{note.desc_task}}
+                  </ion-card-content>
+                </ion-card>
+              </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
     </ion-col>
   </ion-row>
   <ion-fab  vertical="bottom" horizontal="end" slot="fixed">

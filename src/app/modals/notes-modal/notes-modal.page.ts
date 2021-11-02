@@ -19,10 +19,10 @@ export class NotesModalPage implements OnInit {
   form_sent = false;
   @Input() note;
   @Input() id_project;
+  @Input() completed;
 
   title;
   desc;
-  completed = false;
   title_modal =  "Agregar Nueva";
   button_txt = "Agregar"
   id_task;
@@ -86,11 +86,13 @@ export class NotesModalPage implements OnInit {
   async createOrUpdate(){
     this.form_sent = true;
     if (this.noteForm.invalid) {
-      //console.log(this.noteForm.value['completed']);
       return;
     } else {
       var form_data = this.noteForm.value;
       var data ={'desc_task':form_data['desc_task'], 'project':this.id_project,'title_task':form_data['title_task']};
+      if(this.completed){
+        data['completed'] = true;
+      }
       if(this.note){
         this.restService.put_method(`task/${this.note.id_task}`,data).subscribe(result =>{
           this.dismiss()

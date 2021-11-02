@@ -15,8 +15,19 @@
 <ion-content fullscreen>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="6">
-        <ion-button expand="block" fill="outline" *ngFor="let project of projects" (click)="goToPanel(project.id)">{{project.name_project}}</ion-button>
+      <ion-col size-xs="9" size-sm="8" size-md="6" size-lg="6" size-xl="4">
+        <div *ngFor="let project of projects">
+          <ion-row>
+            <ion-col size="10">
+              <ion-button expand="block" fill="outline" (click)="goToPanel(project.id)">{{project.name_project}}</ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button color="tertiary" (click)="update_project(project)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

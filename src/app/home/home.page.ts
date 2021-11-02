@@ -76,6 +76,20 @@ export class HomePage {
     return await modal.present();
   }
 
+  async new_note_completed(){
+    const modal = await this.modalController.create({
+      component: NotesModalPage,
+      componentProps:{
+        id_project: this.route.snapshot.paramMap.get('id_project'),
+        completed: true
+      }
+    });
+    modal.onDidDismiss().then(()=>{
+        this.load_notes();
+      });
+    return await modal.present();
+  }
+
   async update_note(note){
     const modal = await this.modalController.create({
       component: NotesModalPage,

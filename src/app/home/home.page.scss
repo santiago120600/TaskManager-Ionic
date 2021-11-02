@@ -30,3 +30,10 @@ ion-card {
       }
     }
 }
+
+ion-fab {
+  @media only screen and (min-width: 620px) {
+    display: none; 
+  }
+}
+
