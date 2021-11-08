@@ -5,6 +5,9 @@ import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ActivatedRoute } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { UsersProjectModalPage } from '../modals/users-project-modal/users-project-modal.page';
+import { AsssignUserModalPage } from '../modals/asssign-user-modal/asssign-user-modal.page';
+import { ComentariosNotaModalPage } from '../modals/comentarios-nota-modal/comentarios-nota-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -61,6 +64,31 @@ export class HomePage {
     this.restService.delete_method(`task/${task_id}`,'').subscribe(result =>{
       this.load_notes();
     });  
+  }
+
+  async manage_coments(){
+    console.log("Esta funcion va a abrir un modal para poder ver los comentarios ademas de agregar comentarios");
+    console.log("Pasar como props task.comments");
+    const modal = await this.modalController.create({
+      component: ComentariosNotaModalPage,
+    });
+    return await modal.present();
+  }
+
+  async assign_user(){
+    console.log("Abrir un modal para borrar y agregar miembros");
+    const modal = await this.modalController.create({
+      component: AsssignUserModalPage,
+    });
+    return await modal.present();
+  }
+
+  async manage_users(){
+    console.log("Administrar los usuario del proyecto, borrar y agregar");
+    const modal = await this.modalController.create({
+      component: UsersProjectModalPage,
+    });
+    return await modal.present();
   }
 
   async new_note(){

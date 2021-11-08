@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { NotesModalPageModule } from '../modals/notes-modal/notes-modal.module';
+import { UsersProjectModalPageModule } from '../modals/users-project-modal/users-project-modal.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
@@ -18,7 +19,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HomePageRoutingModule,
     NotesModalPageModule,
     ReactiveFormsModule,
-    DragDropModule
+    DragDropModule, UsersProjectModalPageModule
   ],
   declarations: [HomePage]
 })

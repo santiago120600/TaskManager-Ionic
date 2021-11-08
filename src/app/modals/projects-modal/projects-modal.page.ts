@@ -97,7 +97,7 @@ export class ProjectsModalPage implements OnInit {
           this.dismiss()
         });
       }else{
-        this.restService.post_method('project',data).subscribe(result =>{
+        this.restService.post_method('createproject',data).subscribe(result =>{
         // si no hay errores al registrar entonces cerrar el modal
           this.dismiss()
         });

@@ -32,7 +32,12 @@
       <div class="ion-text-end" *ngIf="form_sent && noteForm.controls.desc_task.invalid">
         <ion-text color="danger">Descripción requerida.</ion-text>
       </div>
+      <!-- input -->
+      <ion-item>
+        <ion-input type="file"></ion-input>
+      </ion-item>
        <ion-button expand="block" type="submit" color="tertiary" class="ion-margin">{{button_txt}}</ion-button>
       </form>
+      <ion-text>Aqui mostrar los comentarios si está colocada la variable de project que indica que está en modo de edición</ion-text>
   </ion-card>
 </ion-content>

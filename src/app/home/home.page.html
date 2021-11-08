@@ -9,9 +9,12 @@
      <ion-buttons slot="end">
        <ion-button (click)="new_note()">
        </ion-button>
-       <ion-button (click)="presentPopover($event)">
-          <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-        </ion-button>
+         <ion-button (click)="manage_users()">
+            <ion-icon slot="icon-only" name="people-outline"></ion-icon>
+          </ion-button>
+         <ion-button (click)="presentPopover($event)">
+            <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+          </ion-button>
      </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -28,21 +31,35 @@
             [cdkDropListConnectedTo]="[doneList]"
             (cdkDropListDropped)="drop($event)">
              <ion-list-header>
-                <ion-label>To Do</ion-label>
+                <ion-label>A hacer</ion-label>
                 <ion-button (click)="new_note()">
                   <ion-icon name="add" color="dark"></ion-icon>
                 </ion-button>
               </ion-list-header>
               <div>
-                <ion-card *ngFor="let note of todo" cdkDrag (click)="update_note(note)">
+                <ion-card *ngFor="let note of todo" cdkDrag>
                   <ion-card-header  *ngIf="note.title_task">
                     <ion-card-title>{{note.title_task}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
                     {{note.desc_task}}
+                      <ion-row>
+                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user()">
+                            <ion-icon name="person-outline"></ion-icon>
+                          </ion-button>
+                          <ion-button fill="outline" shape="round" size="small" (click)="update_note(note)">
+                            <ion-icon name="create-outline"></ion-icon>
+                          </ion-button>
+                          <ion-button fill="outline" shape="round" size="small" (click)="manage_coments()">
+                            <ion-icon name="chatbox-outline"></ion-icon>
+                          </ion-button>
+                      </ion-row>
                   </ion-card-content>
                 </ion-card>
               </div>
+              <ion-button (click)="new_note()" expand="block" fill="outline">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
             </ion-list>
         </ion-col>
         <ion-col size="6">
@@ -53,29 +70,38 @@
             [cdkDropListConnectedTo]="[todoList]"
             (cdkDropListDropped)="drop($event)">
              <ion-list-header>
-                <ion-label>Done</ion-label>
+                <ion-label>Hechos</ion-label>
                 <ion-button (click)="new_note_completed()">
                   <ion-icon name="add" color="dark"></ion-icon>
                 </ion-button>
               </ion-list-header>
               <div>
-                <ion-card *ngFor="let note of done" cdkDrag (click)="update_note(note)">
+                <ion-card *ngFor="let note of done" cdkDrag>
                   <ion-card-header  *ngIf="note.title_task">
                     <ion-card-title>{{note.title_task}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
                     {{note.desc_task}}
+                      <ion-row>
+                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user()">
+                            <ion-icon name="person-outline"></ion-icon>
+                          </ion-button>
+                          <ion-button fill="outline" shape="round" size="small" (click)="update_note(note)">
+                            <ion-icon name="create-outline"></ion-icon>
+                          </ion-button>
+                          <ion-button fill="outline" shape="round" size="small" (click)="manage_coments()">
+                            <ion-icon name="chatbox-outline"></ion-icon>
+                          </ion-button>
+                      </ion-row>
                   </ion-card-content>
                 </ion-card>
               </div>
+              <ion-button (click)="new_note_completed()" expand="block" fill="outline">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
           </ion-list>
         </ion-col>
       </ion-row>
     </ion-col>
   </ion-row>
-  <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button  (click)="new_note()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
