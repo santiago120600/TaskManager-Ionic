@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 
 @Component({
@@ -8,9 +8,15 @@ import { ModalController } from "@ionic/angular";
 })
 export class AsssignUserModalPage implements OnInit {
 
+  @Input() id_task;
+  @Input() users;
+
   constructor(
     private modalController: ModalController,
-  ) { }
+  ) { 
+    console.log(this.id_task);
+    console.log(this.users);
+  }
 
   ngOnInit() {
   }

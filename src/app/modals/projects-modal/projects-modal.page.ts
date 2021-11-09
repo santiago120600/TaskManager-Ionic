@@ -37,7 +37,6 @@ export class ProjectsModalPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.project);
     if (this.project){
       this.projectForm.setValue({
         name_project: this.project.name_project 

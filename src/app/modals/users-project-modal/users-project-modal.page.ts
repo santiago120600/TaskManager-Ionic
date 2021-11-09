@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 
 @Component({
@@ -8,9 +8,13 @@ import { ModalController } from "@ionic/angular";
 })
 export class UsersProjectModalPage implements OnInit {
 
+  @Input() id_project;
+
   constructor(
     private modalController: ModalController,
-  ) { }
+  ) { 
+    console.log(this.id_project);
+  }
 
   ngOnInit() {
   }

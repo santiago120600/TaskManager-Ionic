@@ -11,7 +11,7 @@ import { Platform } from '@ionic/angular';
 })
 export class RestService {
 
-  apiUrl = "http://127.0.0.1:8000/";
+  apiUrl = "https://task-manager-api-01.herokuapp.com/";
   public authState =  new BehaviorSubject(false);
   private httpClientFiles: HttpClient;
 
@@ -84,7 +84,7 @@ export class RestService {
           this.authState.next(true);
           this.modalController.dismiss({dismissed: true});
       }else if(result.status=="400"){
-        console.log(result);
+        //console.log(result);
         if(result.validations.email && result.validations.email[0] == "Este campo debe ser único."){
           this.display_toast('Error',"warning","Este email ya existe",'top',4000);
         }else if(result.validations.username && result.validations.username[0] == "Ya existe un usuario con este nombre."){

@@ -44,13 +44,13 @@
                   <ion-card-content>
                     {{note.desc_task}}
                       <ion-row>
-                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user()">
+                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user(note)">
                             <ion-icon name="person-outline"></ion-icon>
                           </ion-button>
                           <ion-button fill="outline" shape="round" size="small" (click)="update_note(note)">
                             <ion-icon name="create-outline"></ion-icon>
                           </ion-button>
-                          <ion-button fill="outline" shape="round" size="small" (click)="manage_coments()">
+                          <ion-button fill="outline" shape="round" size="small" (click)="manage_comments(note)">
                             <ion-icon name="chatbox-outline"></ion-icon>
                           </ion-button>
                       </ion-row>
@@ -83,13 +83,13 @@
                   <ion-card-content>
                     {{note.desc_task}}
                       <ion-row>
-                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user()">
+                        <ion-button fill="outline" shape="round" size="small" (click)="assign_user(note)">
                             <ion-icon name="person-outline"></ion-icon>
                           </ion-button>
                           <ion-button fill="outline" shape="round" size="small" (click)="update_note(note)">
                             <ion-icon name="create-outline"></ion-icon>
                           </ion-button>
-                          <ion-button fill="outline" shape="round" size="small" (click)="manage_coments()">
+                          <ion-button fill="outline" shape="round" size="small" (click)="manage_comments(note)">
                             <ion-icon name="chatbox-outline"></ion-icon>
                           </ion-button>
                       </ion-row>

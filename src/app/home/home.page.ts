@@ -22,6 +22,8 @@ export class HomePage {
   todo = [];
 
   done = [];
+  project;
+  id_project = this.route.snapshot.paramMap.get('id_project');
 
   constructor(
     private restService : RestService,
@@ -33,7 +35,9 @@ export class HomePage {
    this.restService.authUserData().then(result=>{
         this.session = result;
     });
-
+   this.restService.get_method(`project/${this.id_project}`,'').subscribe(result=>{
+        this.project = result.data;
+    });
     this.load_notes();
   }
 
@@ -41,8 +45,7 @@ export class HomePage {
   }
 
   async load_notes(){
-    var id_project = this.route.snapshot.paramMap.get('id_project');
-    this.restService.get_method(`task?project_id=${id_project}`,'').subscribe(result =>{
+    this.restService.get_method(`task?project_id=${this.id_project}`,'').subscribe(result =>{
       this.todo = result.data.filter(item =>{
         if(item.completed == false){
           return true;
@@ -66,27 +69,34 @@ export class HomePage {
     });  
   }
 
-  async manage_coments(){
-    console.log("Esta funcion va a abrir un modal para poder ver los comentarios ademas de agregar comentarios");
-    console.log("Pasar como props task.comments");
+  async manage_comments(task){
     const modal = await this.modalController.create({
       component: ComentariosNotaModalPage,
+      componentProps:{
+        comments: task['comments'],
+        id_task: task.id_task,
+      },
     });
     return await modal.present();
   }
 
-  async assign_user(){
-    console.log("Abrir un modal para borrar y agregar miembros");
+  async assign_user(task){
     const modal = await this.modalController.create({
       component: AsssignUserModalPage,
+      componentProps:{
+       id_task: task.id_task,
+       users: task.assigned_users
+      }
     });
     return await modal.present();
   }
 
   async manage_users(){
-    console.log("Administrar los usuario del proyecto, borrar y agregar");
     const modal = await this.modalController.create({
       component: UsersProjectModalPage,
+      componentProps:{
+        id_project: this.id_project,
+      }
     });
     return await modal.present();
   }
@@ -95,7 +105,7 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: NotesModalPage,
       componentProps:{
-        id_project: this.route.snapshot.paramMap.get('id_project')
+        id_project: this.id_project
       }
     });
     modal.onDidDismiss().then(()=>{
@@ -108,7 +118,7 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: NotesModalPage,
       componentProps:{
-        id_project: this.route.snapshot.paramMap.get('id_project'),
+        id_project: this.id_project,
         completed: true
       }
     });

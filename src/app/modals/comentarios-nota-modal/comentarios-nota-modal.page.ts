@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 
 @Component({
@@ -8,9 +8,15 @@ import { ModalController } from "@ionic/angular";
 })
 export class ComentariosNotaModalPage implements OnInit {
 
+  @Input() comments;
+  @Input() id_task;
+
   constructor(
     private modalController: ModalController,
-  ) { }
+  ) { 
+    console.log(this.comments);
+    console.log(this.id_task);
+  }
 
   ngOnInit() {
   }
