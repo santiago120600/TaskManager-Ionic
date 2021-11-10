@@ -22,7 +22,7 @@ export class HomePage {
   todo = [];
 
   done = [];
-  project;
+  project; // esta variable la quiero usar para traer el nombre del proyecto
   id_project = this.route.snapshot.paramMap.get('id_project');
 
   constructor(
@@ -34,9 +34,6 @@ export class HomePage {
   ) {
    this.restService.authUserData().then(result=>{
         this.session = result;
-    });
-   this.restService.get_method(`project/${this.id_project}`,'').subscribe(result=>{
-        this.project = result.data;
     });
     this.load_notes();
   }
@@ -73,8 +70,8 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: ComentariosNotaModalPage,
       componentProps:{
-        comments: task['comments'],
-        id_task: task.id_task,
+        'comments': task.comments,
+        'id_task': task.id_task,
       },
     });
     return await modal.present();
@@ -84,8 +81,7 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: AsssignUserModalPage,
       componentProps:{
-       id_task: task.id_task,
-       users: task.assigned_users
+       task: task
       }
     });
     return await modal.present();

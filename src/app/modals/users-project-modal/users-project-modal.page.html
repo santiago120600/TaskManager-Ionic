@@ -1,6 +1,6 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Usuarios</ion-title>
+    <ion-title>Usuarios agregados a este proyecto</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss();">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -10,5 +10,27 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let user of users">
+      <ion-label>{{user.username}}</ion-label>
+      <ion-button color="danger" fill="outline" expand="block"><ion-icon name="trash-outline"></ion-icon></ion-button>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Agregar usuario:</ion-label>
+            <ion-input name="email" type="mail"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button type="submit" fill="outline" color="medium">
+            <ion-icon name="person-add-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>  
+  </ion-card>
 </ion-content>

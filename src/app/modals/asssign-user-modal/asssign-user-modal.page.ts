@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
+import { RestService } from '../../services/rest.service';
 
 @Component({
   selector: 'app-asssign-user-modal',
@@ -8,22 +9,28 @@ import { ModalController } from "@ionic/angular";
 })
 export class AsssignUserModalPage implements OnInit {
 
-  @Input() id_task;
-  @Input() users;
+  @Input() task;
+  project_users: number;
 
   constructor(
     private modalController: ModalController,
+    private restService : RestService,
   ) { 
-    console.log(this.id_task);
-    console.log(this.users);
   }
 
   ngOnInit() {
+    this.get_project_users();
   }
 
  dismiss() {
     this.modalController.dismiss({
       dismissed: true
+    });
+  }
+
+  get_project_users(){
+    this.restService.get_method(`project/${this.task.project}`,'').subscribe(result =>{
+      this.project_users = result.data.users;
     });
   }
 

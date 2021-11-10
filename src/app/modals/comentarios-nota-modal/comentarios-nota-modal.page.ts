@@ -14,11 +14,11 @@ export class ComentariosNotaModalPage implements OnInit {
   constructor(
     private modalController: ModalController,
   ) { 
-    console.log(this.comments);
-    console.log(this.id_task);
   }
 
   ngOnInit() {
+    console.log(this.comments);
+    console.log(this.id_task);
   }
 
 
