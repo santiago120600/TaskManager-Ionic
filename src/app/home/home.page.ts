@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RestService } from '../services/rest.service';
-import { MenuController, ModalController, PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { NotesModalPage } from '../modals/notes-modal/notes-modal.page';
 import { MiniMenuPage } from  '../mini-menu/mini-menu.page';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +27,6 @@ export class HomePage {
 
   constructor(
     private restService : RestService,
-    private menu: MenuController,
     private modalController: ModalController,
     private popoverController: PopoverController,
     private route : ActivatedRoute,
@@ -161,8 +160,12 @@ export class HomePage {
   }
 
   changeCompleted(task){
-    task['completed'] = (task['completed'] == true ? false : true);
-    this.restService.put_method(`task/${task['id_task']}`,task).subscribe(result =>{
+    var data = {
+      "desc_task":task.desc_task,
+      "project":task.project
+    }
+    data['completed'] = (task['completed'] == true ? false : true);
+    this.restService.put_method(`task/${task['id_task']}`,data).subscribe(result =>{
       this.load_notes();
     });  
   }
