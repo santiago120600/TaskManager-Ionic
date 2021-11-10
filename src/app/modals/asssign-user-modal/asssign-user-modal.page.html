@@ -10,9 +10,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list>  
+    <ion-list-header *ngIf="task.assigned_users.length > 0">
+      Usuario asignados a esta tarea
+    </ion-list-header>
     <ion-item *ngFor="let user of task.assigned_users">
-      <ion-label>{{user.username}}</ion-label>
+      <ion-icon class="ion-margin-end" name="person-outline"></ion-icon>
+      <ion-label>
+        <p>{{user.username}}</p>
+      </ion-label>
       <ion-button color="danger" fill="outline" expand="block"><ion-icon name="trash-outline"></ion-icon></ion-button>
     </ion-item>
   </ion-list>

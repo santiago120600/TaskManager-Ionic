@@ -30,7 +30,13 @@ export class AsssignUserModalPage implements OnInit {
 
   get_project_users(){
     this.restService.get_method(`project/${this.task.project}`,'').subscribe(result =>{
-      this.project_users = result.data.users;
+      var already_assign = []
+      this.task.assigned_users.forEach((i)=>{
+        already_assign.push(i['id']);
+      });
+      this.project_users = result.data.users.filter(function(i){
+        return !already_assign.includes(i['id']);
+      });
     });
   }
 
