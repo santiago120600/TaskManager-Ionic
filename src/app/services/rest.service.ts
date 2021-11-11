@@ -11,7 +11,8 @@ import { Platform } from '@ionic/angular';
 })
 export class RestService {
 
-  apiUrl = "http://127.0.0.1:8000/";
+  apiUrl = "https://task-manager-api-01.herokuapp.com/";
+  //apiUrl = "http://127.0.0.1:8000/";
   public authState =  new BehaviorSubject(false);
   private httpClientFiles: HttpClient;
 

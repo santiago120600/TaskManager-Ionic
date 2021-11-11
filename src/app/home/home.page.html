@@ -31,7 +31,7 @@
             [cdkDropListConnectedTo]="[doneList]"
             (cdkDropListDropped)="drop($event)">
              <ion-list-header>
-                <ion-label>A hacer</ion-label>
+                <ion-label>Pendientes</ion-label>
                 <ion-button (click)="new_note()">
                   <ion-icon name="add" color="dark"></ion-icon>
                 </ion-button>
@@ -70,7 +70,7 @@
             [cdkDropListConnectedTo]="[todoList]"
             (cdkDropListDropped)="drop($event)">
              <ion-list-header>
-                <ion-label>Hechos</ion-label>
+                <ion-label>Finalizadas</ion-label>
                 <ion-button (click)="new_note_completed()">
                   <ion-icon name="add" color="dark"></ion-icon>
                 </ion-button>

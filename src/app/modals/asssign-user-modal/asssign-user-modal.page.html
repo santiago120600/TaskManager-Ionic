@@ -23,15 +23,18 @@
     </ion-item>
   </ion-list>
   <ion-card>
-    <form>
+    <form (ngSubmit)="asssignUser()" [formGroup]="assignUserForm">
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label>Asignar tarea a:</ion-label>
-            <ion-select>
+            <ion-select formControlName="user">
               <ion-select-option *ngFor="let user of project_users" value={{user.id}}>{{user.username}}</ion-select-option>
             </ion-select>
           </ion-item>
+          <div class="ion-text-end" *ngIf="form_sent && assignUserForm.controls.user.invalid">
+            <ion-text color="danger">usuario requerido.</ion-text>
+          </div>
         </ion-col>
         <ion-col size="3">
           <ion-button type="submit" fill="outline" color="medium">
