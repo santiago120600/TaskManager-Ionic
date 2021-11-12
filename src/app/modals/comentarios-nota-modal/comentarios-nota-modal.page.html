@@ -48,7 +48,7 @@
           <ion-label position="floating">Escribir comentario:</ion-label>
           <ion-textarea formControlName="comment"></ion-textarea>
         </ion-item>
-        <div class="ion-text-end" *ngIf="!commentForm.controls.comment.touched && form_sent && commentForm.controls.comment.invalid">
+        <div class="ion-text-end" *ngIf="form_sent && commentForm.controls.comment.invalid">
           <ion-text color="danger">El comentario no puede ser vacio.</ion-text>
         </div>
         <ion-button type="submit" fill="outline" color="medium">

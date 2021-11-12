@@ -60,6 +60,8 @@ export class UsersProjectModalPage implements OnInit {
         }else{
           this.restService.display_toast('Error',"danger",result.message,'top',4000);
         }
+        this.addUserForm.reset();
+        this.addUserForm.controls.username.setErrors(null);
       });
     }
   }

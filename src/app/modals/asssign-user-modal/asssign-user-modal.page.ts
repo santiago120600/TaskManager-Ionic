@@ -16,7 +16,7 @@ import {
 export class AsssignUserModalPage implements OnInit {
 
   @Input() task;
-  project_users: number;
+  project_users = [];
   public assignUserForm: FormGroup;
   form_sent = false;
   assignedUsers = [];

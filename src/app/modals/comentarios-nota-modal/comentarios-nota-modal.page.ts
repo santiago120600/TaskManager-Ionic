@@ -57,11 +57,8 @@ export class ComentariosNotaModalPage implements OnInit {
       var data ={'desc_comment':this.commentForm.value.comment, 'user':id_user, 'task':this.id_task};
       this.restService.post_method('comment',data).subscribe(result =>{
         this.load_comments();
-        //this.commentForm.reset();
-        //this.commentForm.setValue({
-          //comment:''
-        //});
-        this.commentForm.markAsUntouched();
+        this.commentForm.reset();
+        this.commentForm.controls.comment.setErrors(null);
       });
     }
   }
