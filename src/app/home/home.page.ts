@@ -69,7 +69,6 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: ComentariosNotaModalPage,
       componentProps:{
-        'comments': task.comments,
         'id_task': task.id_task,
       },
     });

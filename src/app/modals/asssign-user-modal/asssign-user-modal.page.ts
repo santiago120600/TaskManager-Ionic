@@ -19,6 +19,7 @@ export class AsssignUserModalPage implements OnInit {
   project_users: number;
   public assignUserForm: FormGroup;
   form_sent = false;
+  assignedUsers = [];
 
   constructor(
     private modalController: ModalController,
@@ -32,6 +33,13 @@ export class AsssignUserModalPage implements OnInit {
 
   ngOnInit() {
     this.get_project_users();
+    this.load_assigned_users();
+  }
+
+  load_assigned_users(){
+    this.restService.get_method(`task/${this.task.id_task}`,'').subscribe(result =>{
+      this.assignedUsers = result.data.assigned_users;
+    });
   }
 
  dismiss() {
@@ -61,8 +69,7 @@ export class AsssignUserModalPage implements OnInit {
       this.restService.post_method('usertask',{'user':this.assignUserForm.value.user,'task':this.task.id_task}).subscribe(result =>{
         if(result.status == 200){
           // recargar la lista de usuario asignados
-          this.restService.display_toast('OK',"success",result.message,'top',4000);
-          this.dismiss();
+          this.load_assigned_users();
         }else{
           this.restService.display_toast('Error',"danger",result.message,'top',4000);
         }

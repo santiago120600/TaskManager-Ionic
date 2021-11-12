@@ -11,37 +11,49 @@
 
 <ion-content>
   <ion-list>  
-    <ion-list-header *ngIf="task.assigned_users.length > 0">
+    <ion-list-header *ngIf="assignedUsers.length > 0">
       Usuario asignados a esta tarea
     </ion-list-header>
-    <ion-item *ngFor="let user of task.assigned_users">
-      <ion-icon class="ion-margin-end" name="person-outline"></ion-icon>
-      <ion-label>
-        <p>{{user.username}}</p>
-      </ion-label>
-      <ion-button color="danger" fill="outline" expand="block"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    </ion-item>
+    <ion-card *ngFor="let user of assignedUsers">
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="3">
+            <ion-icon size="large" name="person-outline"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              <h3>{{user.username}}</h3>
+            </ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
-  <ion-card>
-    <form (ngSubmit)="asssignUser()" [formGroup]="assignUserForm">
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Asignar tarea a:</ion-label>
-            <ion-select formControlName="user">
-              <ion-select-option *ngFor="let user of project_users" value={{user.id}}>{{user.username}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <div class="ion-text-end" *ngIf="form_sent && assignUserForm.controls.user.invalid">
-            <ion-text color="danger">usuario requerido.</ion-text>
-          </div>
-        </ion-col>
-        <ion-col size="3">
-          <ion-button type="submit" fill="outline" color="medium">
-            <ion-icon name="add-outline"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>  
+  <ion-card *ngIf="project_users.length > 0">
+    <ion-card-content>
+      <form (ngSubmit)="asssignUser()" [formGroup]="assignUserForm">
+        <ion-row >
+          <ion-col>
+            <ion-item>
+              <ion-label>Asignar tarea a:</ion-label>
+              <ion-select formControlName="user">
+                <ion-select-option *ngFor="let user of project_users" value={{user.id}}>{{user.username}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="ion-text-end" *ngIf="form_sent && assignUserForm.controls.user.invalid">
+              <ion-text color="danger">usuario requerido.</ion-text>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button type="submit" fill="outline" color="medium">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>  
+    </ion-card-content>
   </ion-card>
 </ion-content>
