@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="comments.length > 0">
     <ion-list-header>
       Comentarios
     </ion-list-header>
@@ -18,7 +18,21 @@
       <ion-card-content>
         <ion-row>
           <ion-col>
-            <ion-label>{{comment.desc_comment}}</ion-label>
+            <ion-row>
+              <ion-col>
+                <ion-label>{{comment.desc_comment}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-label>
+                <ion-text color="secondary">
+                  > {{comment.user_name}}
+                </ion-text>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-label>{{comment.created_at}}</ion-label>
+            </ion-row>
           </ion-col>
           <ion-col size="2">
               <ion-button color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
@@ -34,7 +48,7 @@
           <ion-label position="floating">Escribir comentario:</ion-label>
           <ion-textarea formControlName="comment"></ion-textarea>
         </ion-item>
-        <div class="ion-text-end" *ngIf="form_sent && assignUserForm.controls.user.invalid">
+        <div class="ion-text-end" *ngIf="!commentForm.controls.comment.touched && form_sent && commentForm.controls.comment.invalid">
           <ion-text color="danger">El comentario no puede ser vacio.</ion-text>
         </div>
         <ion-button type="submit" fill="outline" color="medium">

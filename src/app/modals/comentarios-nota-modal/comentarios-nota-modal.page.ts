@@ -16,10 +16,7 @@ import {
 export class ComentariosNotaModalPage implements OnInit {
 
   @Input() id_task;
-  comments = [
-    {"desc_comment":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-    {"desc_comment":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
-  ];
+  comments = [];
   public commentForm: FormGroup;
   form_sent = false;
 
@@ -34,6 +31,13 @@ export class ComentariosNotaModalPage implements OnInit {
   }
 
   ngOnInit() {
+    this.load_comments();
+  }
+
+  load_comments(){
+    this.restService.get_method(`comment?task_id=${this.id_task}`,'').subscribe(result =>{
+      this.comments = result.data;
+    });
   }
 
 
@@ -44,12 +48,21 @@ export class ComentariosNotaModalPage implements OnInit {
   }
 
 
-  newComment(){
+  async newComment(){
     this.form_sent = true;
     if (this.commentForm.invalid) {
       return;
     } else {
-      console.log("OK");
+      var {id_user} = await this.restService.authUserData();
+      var data ={'desc_comment':this.commentForm.value.comment, 'user':id_user, 'task':this.id_task};
+      this.restService.post_method('comment',data).subscribe(result =>{
+        this.load_comments();
+        //this.commentForm.reset();
+        //this.commentForm.setValue({
+          //comment:''
+        //});
+        this.commentForm.markAsUntouched();
+      });
     }
   }
 
