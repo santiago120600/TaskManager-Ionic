@@ -48,7 +48,11 @@ const routes: Routes = [
   {
     path: 'asssign-user-modal',
     loadChildren: () => import('./modals/asssign-user-modal/asssign-user-modal.module').then( m => m.AsssignUserModalPageModule)
+  },  {
+    path: 'task-files-modal',
+    loadChildren: () => import('./modals/task-files-modal/task-files-modal.module').then( m => m.TaskFilesModalPageModule)
   },
+
 ];
 
 @NgModule({

@@ -44,7 +44,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('Resumen petición: ', event);
+          //console.log('Resumen petición: ', event);
         }
         return event;
       }),

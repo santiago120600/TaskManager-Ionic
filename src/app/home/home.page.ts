@@ -8,6 +8,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { UsersProjectModalPage } from '../modals/users-project-modal/users-project-modal.page';
 import { AsssignUserModalPage } from '../modals/asssign-user-modal/asssign-user-modal.page';
 import { ComentariosNotaModalPage } from '../modals/comentarios-nota-modal/comentarios-nota-modal.page';
+import { TaskFilesModalPage } from '../modals/task-files-modal/task-files-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -68,6 +69,16 @@ export class HomePage {
   async manage_comments(task){
     const modal = await this.modalController.create({
       component: ComentariosNotaModalPage,
+      componentProps:{
+        'id_task': task.id_task,
+      },
+    });
+    return await modal.present();
+  }
+
+  async manage_files(task){
+    const modal = await this.modalController.create({
+      component: TaskFilesModalPage,
       componentProps:{
         'id_task': task.id_task,
       },

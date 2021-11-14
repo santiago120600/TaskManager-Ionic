@@ -1,0 +1,27 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Archivos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss();">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let file of files">
+      <ion-card-content>
+        <ion-row>
+          <img src="{{file.file}}" alt="">
+          <!--<embed -->
+            <!--src="{{file.file}}"-->
+            <!--type="application/pdf"-->
+            <!-->-->
+          <!--<iframe src="{{file.file}}" frameborder="0"></iframe>-->
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
