@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import {
   FormControl,
@@ -25,6 +25,7 @@ export class UsersProjectModalPage implements OnInit {
     private modalController: ModalController,
     private restService : RestService,
     private formBuilder: FormBuilder,
+    public alertController: AlertController
   ) { 
     this.addUserForm = this.formBuilder.group({
       username: new FormControl("", Validators.compose([Validators.required])),
@@ -45,6 +46,31 @@ export class UsersProjectModalPage implements OnInit {
     this.restService.get_method(`project/${this.id_project}`,'').subscribe(result =>{
       this.users = result.data.users;
     });
+  }
+
+  async remove_user(id_user){
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: 'Está a punto de remover a este usuario del proyecto',
+      message: '¿Continuar?',
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (i) => {}
+        }, 
+        {
+          text: 'OK',
+          handler: () => {
+            var data = {'user':id_user,'project':this.id_project}
+            this.restService.put_method('userproject',data).subscribe(result =>{
+              this.load_users();
+            });  
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   addUser(){

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import {
   FormControl,
@@ -25,6 +25,7 @@ export class AsssignUserModalPage implements OnInit {
     private modalController: ModalController,
     private restService : RestService,
     private formBuilder: FormBuilder,
+    public alertController: AlertController
   ) { 
     this.assignUserForm = this.formBuilder.group({
       user: new FormControl("", Validators.compose([Validators.required])),
@@ -46,6 +47,31 @@ export class AsssignUserModalPage implements OnInit {
     this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  async remove_user(id_user){
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: 'Está a punto de desasignar a este usurio de esta tarea',
+      message: '¿Continuar?',
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (i) => {}
+        }, 
+        {
+          text: 'OK',
+          handler: () => {
+            var data = {'user':id_user,'task':this.task.id_task}
+            this.restService.put_method('usertask',data).subscribe(result =>{
+              this.load_assigned_users();
+            });  
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   get_project_users(){

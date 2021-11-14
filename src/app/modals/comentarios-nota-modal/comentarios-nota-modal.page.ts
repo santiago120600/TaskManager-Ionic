@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import {
   FormControl,
@@ -24,6 +24,7 @@ export class ComentariosNotaModalPage implements OnInit {
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private restService : RestService,
+    public alertController: AlertController
   ) { 
     this.commentForm = this.formBuilder.group({
       comment: new FormControl("", Validators.compose([Validators.required])),
@@ -47,6 +48,29 @@ export class ComentariosNotaModalPage implements OnInit {
     });
   }
 
+  async delete_comment(id){
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: 'Está a punto de eliminar el comentario',
+      message: '¿Continuar?',
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (i) => {}
+        }, 
+        {
+          text: 'OK',
+          handler: () => {
+            this.restService.delete_method(`comment/${id}`,'').subscribe(result =>{
+              this.load_comments();
+            });  
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
   async newComment(){
     this.form_sent = true;
