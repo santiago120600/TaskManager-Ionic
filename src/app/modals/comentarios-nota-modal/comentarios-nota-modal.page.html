@@ -10,6 +10,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form (ngSubmit)="newComment()" [formGroup]="commentForm">
+        <ion-item>
+          <ion-label position="floating">Escribir comentario:</ion-label>
+          <ion-textarea formControlName="comment"></ion-textarea>
+        </ion-item>
+        <div class="ion-text-end" *ngIf="form_sent && commentForm.controls.comment.invalid">
+          <ion-text color="danger">El comentario no puede ser vacio.</ion-text>
+        </div>
+        <ion-button type="submit" fill="outline" color="medium">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </form>  
+    </ion-card-content>
+  </ion-card>
   <ion-list *ngIf="comments.length > 0">
     <ion-list-header>
       Comentarios
@@ -41,20 +57,4 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
-  <ion-card>
-    <ion-card-content>
-      <form (ngSubmit)="newComment()" [formGroup]="commentForm">
-        <ion-item>
-          <ion-label position="floating">Escribir comentario:</ion-label>
-          <ion-textarea formControlName="comment"></ion-textarea>
-        </ion-item>
-        <div class="ion-text-end" *ngIf="form_sent && commentForm.controls.comment.invalid">
-          <ion-text color="danger">El comentario no puede ser vacio.</ion-text>
-        </div>
-        <ion-button type="submit" fill="outline" color="medium">
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-button>
-      </form>  
-    </ion-card-content>
-  </ion-card>
 </ion-content>
