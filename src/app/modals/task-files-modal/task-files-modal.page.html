@@ -24,9 +24,8 @@
   <ion-list>
     <ion-card *ngFor="let file of files">
       <ion-card-content>
-        <ion-row>
+        <ion-button color="light" size="small" shape="round" class="overlay" (click)="delete_file(file.id)"><ion-icon name="close-outline"></ion-icon></ion-button>
           <img [src]="cleanURL(file.file)" alt="">
-        </ion-row>
       </ion-card-content>
     </ion-card>
   </ion-list>

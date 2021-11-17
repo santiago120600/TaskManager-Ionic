@@ -94,6 +94,7 @@ export class NotesModalPage implements OnInit {
         data['completed'] = true;
       }
       if(this.note){
+        data['project'] = this.note.project;
         this.restService.put_method(`task/${this.note.id_task}`,data).subscribe(result =>{
           this.dismiss()
         });

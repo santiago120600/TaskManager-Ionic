@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HttpClient, HttpBackend} from '@angular/common/http';
@@ -19,6 +19,7 @@ export class TaskFilesModalPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    public alertController: AlertController,
     private restService : RestService,
     private sanitizer: DomSanitizer,
     private httpClient_d: HttpClient,
@@ -44,6 +45,32 @@ export class TaskFilesModalPage implements OnInit {
     this.restService.get_method(`task/${this.id_task}`,'').subscribe(result =>{
       this.files = result.data.files;
     });
+  }
+
+  async delete_file(id){
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: 'Está a punto de eliminar el archivo',
+      message: '¿Continuar?',
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (i) => {}
+        }, 
+        {
+          text: 'OK',
+          handler: () => {
+            console.log(id);
+            this.restService.delete_method(`file/${id}`,'').subscribe(result =>{
+              this.restService.display_toast('Correcto','success','Eliminado correctamente','bottom',4000);
+              this.load_files();
+            });  
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   removeImg(){
