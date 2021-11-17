@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { RestService } from '../../services/rest.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { HttpClient, HttpBackend} from '@angular/common/http';
+import { Platform } from '@ionic/angular';
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-task-files-modal',
@@ -18,7 +21,14 @@ export class TaskFilesModalPage implements OnInit {
     private modalController: ModalController,
     private restService : RestService,
     private sanitizer: DomSanitizer,
-  ) { }
+    private httpClient_d: HttpClient,
+    private handler : HttpBackend,
+    private platform : Platform,
+  ) { 
+     this.platform.ready().then(()=>{
+        this.httpClient_d = new HttpClient(this.handler);
+      });
+  }
 
   ngOnInit() {
     this.load_files();
@@ -55,18 +65,24 @@ export class TaskFilesModalPage implements OnInit {
   }
 
   onUpload(){
-    //const formData:FormData = new FormData();
-    //formData.append('file',this.selectedFile,this.selectedFile.name);
-    //console.log(this.selectedFile['name']);
-    //formData.append('file', this.selectedFile['name']);
-    //formData.append('task',this.id_task);
-    //console.log(formData.get("task"));
-    this.restService.post_method('file',{'file':this.selectedFile['name'],'task':this.id_task}).subscribe(result =>{
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    formData.append('task',this.id_task);
+    this.post_method_files('http://127.0.0.1:8000/file',formData).subscribe(result =>{
       this.load_files();
+      this.removeImg();
     });
-    //this.restService.post_method('file',formData).subscribe(result =>{
-      //this.load_files();
-    //});
+
   }
+
+  post_method_files(_uri : string, data : any,): Observable<any>{
+     const token =  localStorage.getItem('token');  
+      const options = {
+          headers: {
+              'Authorization': `token ${token}`,
+          }
+      };
+     return this.httpClient_d.post<any>(_uri,data,options);
+   }
 
 }
